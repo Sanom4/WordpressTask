@@ -1,0 +1,128 @@
+/*
+ Theme Name: Infinity
+ Theme URI: https://wp.vixy.ge
+ Author: Alexander Gonzalez
+ Author URI: https://wp.vixy.ge
+ Description: Made for Task
+ Version: 1.0.0
+ License: GNU General Public License v2 or later
+ License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ Text Domain: infinity-theme-task
+*/
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #ebebeb!important;
+}
+
+.footer {
+    margin-top: auto;
+}
+
+.product {
+padding: 10px;
+    background-color: #fff;
+    position: relative;
+    margin: 10px;
+}
+
+.product img {
+    max-height: 150px;
+    max-width: 200px;
+}
+
+.about h4 {
+    margin-bottom: -3px
+}
+
+.about h3 {
+    color: #e3ce57
+}
+
+.about span {
+    font-size: 13px
+}
+
+.dot {
+    height: 40px;
+    width: 40px;
+    background-color: #e3ce57;
+    border-radius: 50%;
+    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    cursor: pointer;
+    right: 10%;
+    z-index: 10;
+    bottom: -5%
+}
+
+.inner-dot {
+    height: 30px;
+    width: 30px;
+    background-color: #fff;
+    border-radius: 50%;
+    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    cursor: pointer
+}
+
+.cd-cart__details h3 {
+    margin-top: -10px;
+}
+
+.cd-cart__select-quantity {
+    width: 50px;
+}
+
+.cd-cart__product a {
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.cd-cart__title {
+    font-size: 13px!important;
+    text-wrap: wrap;
+    width: 110px;
+    margin-top: 10px;
+}
+
+.cd-cart__select {
+    flex: none;
+    right: 75px;
+    position: absolute!important;
+    top: 2px;
+}
+
+.cd-cart__delete-item {
+    position: absolute;
+    right: 0px;
+    /* top: 18px; */
+}
+
+.cd-cart__price {
+    width: 30%;
+    text-align: right;
+    font-size: 0.91666em;
+    font-size: calc(var(--text-sm)*1.1);
+    font-weight: bold;
+    position: absolute;
+    right: 30px;
+    top: 0px;
+}
+
+.OrderPlaceholder {
+    width: 100%;
+}
+
+.OrderButton {
+    text-align: right;
+    float: right;
+}
