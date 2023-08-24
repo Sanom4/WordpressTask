@@ -44,7 +44,7 @@ class Ecommerce
         if (!session_id()) {
             session_start();
         }
-        $this->user_id =  $_SESSION['wp_task_user'] ?  $_SESSION['wp_task_user'] : session_id();
+        $this->user_id =  isset($_SESSION['wp_task_user']) ?  $_SESSION['wp_task_user'] : session_id();
     }
 
     public function create_tables()
