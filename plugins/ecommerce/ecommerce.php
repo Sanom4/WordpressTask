@@ -44,7 +44,7 @@ class Ecommerce
         if (!session_id()) {
             session_start();
         }
-        $this->user_id = is_user_logged_in() ? get_current_user_id() : session_id();
+        $this->user_id =  $_SESSION['wp_task_user'] ?  $_SESSION['wp_task_user'] : session_id();
     }
 
     public function create_tables()
@@ -523,37 +523,6 @@ class Ecommerce
         return $OrderItemsArr;
     }
 
-
-
-    //Login func
-    function associate_cart_with_user($user_login, $user)
-    {
-        global $wpdb;
-
-        // Get the session ID
-        if (!session_id()) {
-            session_start();
-        }
-        $session_id = session_id();
-
-        // Get the user ID
-        $user_id = $user->ID;
-
-        // Associate the cart with the user ID
-        $table_name = $wpdb->prefix . 'cart';
-        $wpdb->update(
-            $table_name,
-            array('user_id' => $user_id),
-            array('user_id' => $session_id)
-        );
-    }
-
-    function custom_login_redirect()
-    {
-        // Redirect to the homepage
-        wp_redirect(home_url());
-        exit;
-    }
 
     //ADMIN PART OF PLUGIN
 
