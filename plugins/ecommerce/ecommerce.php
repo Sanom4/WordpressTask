@@ -46,7 +46,7 @@ class Ecommerce
         if (!session_id()) {
             session_start();
         }
-        $this->user_id =  isset($_SESSION['wp_task_user']) ?  $_SESSION['wp_task_user'] : session_id();
+        $this->user_id = is_user_logged_in() ? get_current_user_id() : session_id();
     }
 
     public function create_tables()
@@ -339,7 +339,7 @@ class Ecommerce
         $cardExpiry = sanitize_text_field($_POST['cardExpiry']);
         $cardCVV = sanitize_text_field($_POST['cardCVV']);
 
-        if (!isset($_SESSION['wp_task_user'])) {
+        if (!is_user_logged_in()) {
             $userAction = sanitize_text_field($_POST['userAction']);
 
             if ($userAction == 'register') {
@@ -349,7 +349,7 @@ class Ecommerce
             }
         }
 
-        $user_id = $this->user_id;
+        $user_id = $customer = wp_get_current_user();
         $cart_items = $this->get_cart_items_checkout($user_id);
         if (!$cart_items) {
             return; // No items in cart
@@ -361,10 +361,15 @@ class Ecommerce
 
         $orders_table_name = $wpdb->prefix . 'orders';
 
+        $customer = wp_get_current_user();
+
         $wpdb->insert(
             $orders_table_name,
             array(
                 'customer_id' => $user_id,
+                'customer_name' => $customer->display_name,
+                'customer_email' => $customer->user_email,
+                'customer_address' => $order->customer_address,
                 'cardName' => $cardName,
                 'cardNumber' => $cardNumber,
                 'cardExpiry' => $cardExpiry,
@@ -398,6 +403,29 @@ class Ecommerce
         $wpdb->delete($cart_table_name, array('user_id' => $user_id));
     }
 
+
+    function associate_cart_with_user($user_login, $user)
+    {
+        global $wpdb;
+
+        // Get the session ID
+        if (!session_id()) {
+            session_start();
+        }
+        $session_id = session_id();
+
+        // Get the user ID
+        $user_id = $user->ID;
+
+        // Associate the cart with the user ID
+        $table_name = $wpdb->prefix . 'cart';
+        $wpdb->update(
+            $table_name,
+            array('user_id' => $user_id),
+            array('user_id' => $session_id)
+        );
+    }
+
     function handle_checkout()
     {
         $this->process_checkout();
@@ -405,6 +433,7 @@ class Ecommerce
         wp_redirect(home_url('/orders')); // Redirect to the orders page
         exit;
     }
+
 
 
     //Orders
