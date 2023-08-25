@@ -40,12 +40,12 @@
                 } else {
                     echo '<ul class="navbar-nav">';
                     echo '<li class="nav-item">';
-                    echo '<a class="nav-link" href="' . esc_url(wp_login_url()) . '" id="navbarDropdownMenuLink" role="button">';
+                    echo '<a class="nav-link" href="' . esc_url(home_url('/login')) . '" id="navbarDropdownMenuLink" role="button">';
                     echo 'Login';
                     echo '</a>';
                     echo '</li>';
                     echo '<li class="nav-item">';
-                    echo '<a class="nav-link" href="' . esc_url(wp_registration_url()) . '" id="navbarDropdownMenuLink" role="button">';
+                    echo '<a class="nav-link" href="' . esc_url(home_url('/register')) . '" id="navbarDropdownMenuLink" role="button">';
                     echo 'Register';
                     echo '</a>';
                     echo '</li>';
