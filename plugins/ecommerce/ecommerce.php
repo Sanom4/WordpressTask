@@ -16,7 +16,6 @@ class Ecommerce
         //Public part of plugin
         add_action('init', array($this, 'init_session'));
         add_action('wp_login', array($this, 'associate_cart_with_user'), 10, 2);
-        add_action('wp_login', array($this, 'custom_login_redirect'));
         add_action('wp_ajax_add_to_cart', array($this, 'add_to_cart'));
         add_action('wp_ajax_nopriv_add_to_cart', array($this, 'add_to_cart'));
         add_action('wp_ajax_remove_from_cart', array($this, 'remove_from_cart'));
