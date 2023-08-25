@@ -399,7 +399,7 @@ class Ecommerce
 
         // Clear the cart
         $cart_table_name = $wpdb->prefix . 'cart';
-        $wpdb->delete($cart_table_name, array('user_id' => $user_id));
+        $wpdb->delete($cart_table_name, array('user_id' => $this->user_id));
     }
 
 
