@@ -24,7 +24,17 @@
                     'fallback_cb' => false, // Don't show a fallback menu if no menu is found
                 ));
 
-                if (is_user_logged_in()) {
+                if (isset($_SESSION['wp_task_user'])) {
+                    echo '<ul class="navbar-nav">';
+                    echo '<li class="nav-item">';
+                    echo '<a class="nav-link" href="/?custom_logout=true" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">';
+                    echo esc_html('Logout');
+                    echo '</a>';
+                    echo '</li>';
+                    echo '</ul>';
+                }
+
+                /* if (is_user_logged_in()) {
                     $current_user = wp_get_current_user();
                     echo '<ul class="navbar-nav">';
                     echo '<li class="nav-item dropdown">';
@@ -50,7 +60,7 @@
                     echo '</a>';
                     echo '</li>';
                     echo '</ul>';
-                }
+                } */
                 ?>
             </div>
         </nav>

@@ -28,6 +28,8 @@ class Ecommerce
 
         //checkout
         add_action('admin_post_process_checkout', array($this, 'handle_checkout'));
+        add_action('admin_post_nopriv_process_checkout', array($this, 'handle_checkout'));
+
 
         //Admin part of plugin
         add_action('admin_menu', array($this, 'products_api_admin_menu'));
@@ -72,6 +74,10 @@ class Ecommerce
         customer_name VARCHAR(255),
         customer_email VARCHAR(255),
         customer_address VARCHAR(255),
+        cardName VARCHAR(255),
+        cardNumber VARCHAR(255),
+        cardExpiry VARCHAR(255),
+        cardCVV VARCHAR(255),
         total_amount DECIMAL(10, 2),
         order_date DATETIME,
         payment_status VARCHAR(50),
@@ -324,8 +330,26 @@ class Ecommerce
     public function process_checkout()
     {
         global $wpdb;
+        if (class_exists('UserRL')) {
+            $UserRL = new UserRL();
+        }
 
-        $user_id = get_current_user_id();
+        $cardName = sanitize_text_field($_POST['cardName']);
+        $cardNumber = sanitize_text_field($_POST['cardNumber']);
+        $cardExpiry = sanitize_text_field($_POST['cardExpiry']);
+        $cardCVV = sanitize_text_field($_POST['cardCVV']);
+
+        if (!isset($_SESSION['wp_task_user'])) {
+            $userAction = sanitize_text_field($_POST['userAction']);
+
+            if ($userAction == 'register') {
+                $UserRL->Registration();
+            } elseif ($userAction == 'login') {
+                $UserRL->Login();
+            }
+        }
+
+        $user_id = $this->user_id;
         $cart_items = $this->get_cart_items_checkout($user_id);
         if (!$cart_items) {
             return; // No items in cart
@@ -335,15 +359,16 @@ class Ecommerce
             return $sum + $item['price'] * $item['quantity'];
         }, 0);
 
-        $customer = wp_get_current_user();
         $orders_table_name = $wpdb->prefix . 'orders';
 
         $wpdb->insert(
             $orders_table_name,
             array(
                 'customer_id' => $user_id,
-                'customer_name' => $customer->display_name,
-                'customer_email' => $customer->user_email,
+                'cardName' => $cardName,
+                'cardNumber' => $cardNumber,
+                'cardExpiry' => $cardExpiry,
+                'cardCVV' => $cardCVV,
                 'total_amount' => $total_amount,
                 'order_date' => current_time('mysql'),
                 'payment_status' => 'Pending',
@@ -403,9 +428,9 @@ class Ecommerce
             $orders_arr[] = [
                 'order_id' => $order->order_id,
                 'customer_id' => $order->customer_id,
-                'customer_name' => $order->customer_name,
-                'customer_email' => $order->customer_email,
-                'customer_address' => $order->customer_address,
+                'cardName' => $order->cardName,
+                'cardNumber' => $order->cardNumber,
+                'cardExpiry' => $order->cardExpiry,
                 'total_amount' => $order->total_amount,
                 'order_date' => $order->order_date,
                 'payment_status' => $order->payment_status,
@@ -476,9 +501,9 @@ class Ecommerce
             $orders_arr[] = [
                 'order_id' => $order->order_id,
                 'customer_id' => $order->customer_id,
-                'customer_name' => $order->customer_name,
-                'customer_email' => $order->customer_email,
-                'customer_address' => $order->customer_address,
+                'cardName' => $order->customer_name,
+                'cardNumber' => $order->customer_email,
+                'cardExpiry' => $order->customer_address,
                 'total_amount' => $order->total_amount,
                 'order_date' => $order->order_date,
                 'payment_status' => $order->payment_status,
@@ -576,12 +601,14 @@ class Ecommerce
         $orders = $this->PanelOrders();
         if (!empty($orders)) {
             echo '<table class="widefat fixed" cellspacing="0">';
-            echo '<thead><tr><th>ID</th><th>Name</th><th>Description</th><th>Status</th><th>Total Amount</th><th>Details</th></tr></thead>';
+            echo '<thead><tr><th>ID</th><th>Name</th><th>CardNumber</th><th>CardExpiry</th><th>Status</th><th>Total Amount</th><th>Details</th></tr></thead>';
             echo '<tbody>';
             foreach ($orders as $orders) {
                 echo '<tr>';
                 echo '<td>' . esc_html($orders['order_id']) . '</td>';
-                echo '<td>' . esc_html($orders['customer_name']) . '</td>';
+                echo '<td>' . esc_html($orders['cardName']) . '</td>';
+                echo '<td>' . esc_html($orders['cardNumber']) . '</td>';
+                echo '<td>' . esc_html($orders['cardExpiry']) . '</td>';
                 echo '<td>' . esc_html($orders['order_date']) . '</td>';
                 echo '<td>' . esc_html($orders['order_status']) . '</td>';
                 echo '<td>' . esc_html($orders['total_amount']) . '</td>';
