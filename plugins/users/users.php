@@ -9,11 +9,6 @@ Author: Alexander Gonzalez
 class UserRL
 {
 
-    public function __construct()
-    {
-        add_action('init', array($this, 'custom_logout'));
-    }
-
     // WordPress Standard Registration
     function Registration()
     {
@@ -51,15 +46,6 @@ class UserRL
             if (is_wp_error($user)) {
                 echo $user->get_error_message();
             }
-        }
-    }
-
-    function custom_logout()
-    {
-        if (isset($_GET['custom_logout']) && $_GET['custom_logout'] == 'true') {
-            wp_logout();
-            wp_redirect(home_url());
-            exit;
         }
     }
 }
