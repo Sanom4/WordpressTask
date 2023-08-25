@@ -348,8 +348,10 @@ class Ecommerce
             }
         }
 
+        $user_id = get_current_user_id();
+        $customer = wp_get_current_user();
 
-        $cart_items = $this->get_cart_items_checkout($this->user_id);
+        $cart_items = $this->get_cart_items_checkout($user_id);
         if (!$cart_items) {
             return; // No items in cart
         }
@@ -360,12 +362,10 @@ class Ecommerce
 
         $orders_table_name = $wpdb->prefix . 'orders';
 
-        $customer = wp_get_current_user();
-
         $wpdb->insert(
             $orders_table_name,
             array(
-                'customer_id' => $this->user_id,
+                'customer_id' => $user_id,
                 'customer_name' => $customer->display_name,
                 'customer_email' => $customer->user_email,
                 'customer_address' => $customer->customer_address,
@@ -399,7 +399,7 @@ class Ecommerce
 
         // Clear the cart
         $cart_table_name = $wpdb->prefix . 'cart';
-        $wpdb->delete($cart_table_name, array('user_id' => $this->user_id));
+        $wpdb->delete($cart_table_name, array('user_id' => $user_id));
     }
 
 
