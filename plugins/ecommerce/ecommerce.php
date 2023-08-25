@@ -348,8 +348,8 @@ class Ecommerce
             }
         }
 
-        $user_id = $customer = wp_get_current_user();
-        $cart_items = $this->get_cart_items_checkout($user_id);
+
+        $cart_items = $this->get_cart_items_checkout($this->user_id);
         if (!$cart_items) {
             return; // No items in cart
         }
@@ -365,10 +365,10 @@ class Ecommerce
         $wpdb->insert(
             $orders_table_name,
             array(
-                'customer_id' => $user_id,
+                'customer_id' => $this->user_id,
                 'customer_name' => $customer->display_name,
                 'customer_email' => $customer->user_email,
-                'customer_address' => $order->customer_address,
+                'customer_address' => $customer->customer_address,
                 'cardName' => $cardName,
                 'cardNumber' => $cardNumber,
                 'cardExpiry' => $cardExpiry,
