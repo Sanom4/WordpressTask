@@ -14,7 +14,7 @@ get_header();
             <div class="sideBlock bg-white p-3">
                 <ul class="list-unstyled">
                     <li class="active"><a href='<?php echo esc_url(home_url('/login')); ?>'>Login</a></li>
-                    <li><a href='<?php echo esc_url(home_url('/register')); ?>'>Login</a></li>
+                    <li><a href='<?php echo esc_url(home_url('/register')); ?>'>Register</a></li>
 
                 </ul>
             </div>

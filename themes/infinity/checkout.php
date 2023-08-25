@@ -99,7 +99,7 @@ get_header();
                         <tbody>
                             <?php foreach ($cart_items as $item) : ?>
                                 <tr>
-                                    <td><?php echo home_url('/product/') . $item['product_id']; ?><?php echo esc_html($item['title']); ?></td>
+                                    <td><a href='<?php echo home_url('/product/') . $item['product_id']; ?>' target="_new"><?php echo esc_html($item['title']); ?></a></td>
                                     <td><?php echo esc_html($item['quantity']); ?></td>
                                     <td><?php echo esc_html($item['price']); ?></td>
                                     <td><?php echo esc_html($item['price'] * $item['quantity']); ?></td>
