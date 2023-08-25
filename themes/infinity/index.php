@@ -35,7 +35,7 @@ get_header(); ?>
                             <div class="product text-center"> <a href='<?php echo home_url('/product/') . $product['id']; ?>'>
                                     <img class="productImage" src="<?php echo $product['thumbnail']; ?>" width="250"></a>
                                 <div class="about text-left px-3">
-                                    <h4><a href='/product/<?php echo home_url('/product/') . $product['id']; ?>'><?php echo $product['title']; ?></a>
+                                    <h4><a href='<?php echo home_url('/product/') . $product['id']; ?>'><?php echo $product['title']; ?></a>
                                         <h3><?php echo $product['price']; ?>$</h3>
                                 </div>
                                 <a href="#" class="btn btn-primary cd-add-to-cart js-cd-add-to-cart" data-price="<?php echo $product['price']; ?>" data-id="<?php echo $product['id']; ?>">Add to Cart</a>

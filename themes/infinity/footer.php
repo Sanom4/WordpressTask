@@ -20,7 +20,7 @@
             </div>
 
             <footer class="cd-cart__footer">
-                <a href="/checkout/" class="cd-cart__checkout">
+                <a href="<?php echo home_url('/checkout'); ?>" class="cd-cart__checkout">
                     <em>Checkout - $<span>0</span>
                         <svg class="icon icon--sm" viewBox="0 0 24 24">
                             <g fill="none" stroke="currentColor">
