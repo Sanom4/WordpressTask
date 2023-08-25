@@ -18,45 +18,46 @@ get_header();
             <h2 class="mb-4">Checkout</h2>
             <form action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post">
                 <input type="hidden" name="action" value="process_checkout">
+                <?php if (!is_user_logged_in()) { ?>
+                    <!-- User Action Selection -->
+                    <div class="mb-3">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="userAction" id="registerRadio" value="register" checked>
+                            <label class="form-check-label" for="registerRadio">Register</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="userAction" id="loginRadio" value="login">
+                            <label class="form-check-label" for="loginRadio">Login</label>
+                        </div>
+                    </div>
+                    <div class="registrationSection mb-3">
+                        <h3 class="mb-3">Registration</h3>
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" name="username">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="text" class="form-control" id="email" name="email">
+                        </div>
+                    </div>
 
-                <!-- User Action Selection -->
-                <div class="mb-3">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="userAction" id="registerRadio" value="register" checked>
-                        <label class="form-check-label" for="registerRadio">Register</label>
+                    <div class="loginSection mb-3" style="display:none;">
+                        <h3 class="mb-3">Login</h3>
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" name="usernameLogin">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="passwordLogin">
+                        </div>
                     </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="userAction" id="loginRadio" value="login">
-                        <label class="form-check-label" for="loginRadio">Login</label>
-                    </div>
-                </div>
-                <div class="registrationSection mb-3">
-                    <h3 class="mb-3">Registration</h3>
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" name="username">
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="password">
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="text" class="form-control" id="email" name="email">
-                    </div>
-                </div>
-
-                <div class="loginSection mb-3" style="display:none;">
-                    <h3 class="mb-3">Login</h3>
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" name="usernameLogin">
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="passwordLogin">
-                    </div>
-                </div>
+                <?php } ?>
 
 
                 <!-- Credit Card Information Inputs -->
