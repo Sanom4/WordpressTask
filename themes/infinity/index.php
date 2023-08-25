@@ -18,6 +18,7 @@ get_header(); ?>
                     <?php
                     endforeach;
                     ?>
+                    <?php print_r($Ecommerce->user_id); ?>
                 </ul>
             </div>
         </div>
