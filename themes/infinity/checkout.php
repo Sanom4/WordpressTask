@@ -29,6 +29,7 @@ get_header();
                     </div>
                 </div>
                 <form action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post">
+                    <input type="hidden" name="urltoredirect" value="<?php echo home_url('/checkout/'); ?>">
                     <input type="hidden" name="action" value="register">
                     <div class="registrationSection mb-3">
                         <h3 class="mb-3">Registration</h3>
@@ -49,6 +50,7 @@ get_header();
                 </form>
                 <form action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post">
                     <input type="hidden" name="action" value="login">
+                    <input type="hidden" name="urltoredirect" value="<?php echo home_url('/checkout/'); ?>">
                     <div class="loginSection mb-3" style="display:none;">
                         <h3 class="mb-3">Login</h3>
                         <div class="mb-3">
@@ -141,13 +143,13 @@ get_header();
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Modal Heading</h4>
+                <h4 class="modal-title">Attention !!!</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
             <!-- Modal body -->
             <div class="modal-body">
-                Modal body..
+                Please authenticate before proceeding to checkout.
             </div>
 
             <!-- Modal footer -->
