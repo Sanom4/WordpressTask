@@ -38,9 +38,21 @@ class UserRL
             if (is_wp_error($user_id)) {
                 echo $user_id->get_error_message();
             } else {
-                wp_redirect($urltoredirect); // Redirect to the desired URL
-                exit; // It's a good practice to exit after redirecting
-            }
+                // Authenticate the user right after registration.
+                $creds = array(
+                    'user_login'    => $username,
+                    'user_password' => $password,
+                    'remember'      => true
+                );
+
+                $user = wp_signon($creds, false);
+
+                if (is_wp_error($user)) {
+                    echo $user->get_error_message();
+                } else {
+                    wp_redirect($urltoredirect); // Redirect to the desired URL
+                    exit; // It's a good practice to exit after redirecting
+                }
         }
     }
 
