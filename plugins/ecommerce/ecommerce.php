@@ -357,13 +357,6 @@ class Ecommerce
             return; // No items in cart
         }
 
-        print_r($user_id);
-        echo '<br>';
-        print_r($customer);
-        echo '<br>';
-        print_r($cart_items);
-
-    
         $total_amount = array_reduce($cart_items, function ($sum, $item) {
             return $sum + $item['price'] * $item['quantity'];
         }, 0);
@@ -407,9 +400,7 @@ class Ecommerce
         // Clear the cart
         $cart_table_name = $wpdb->prefix . 'cart';
         $wpdb->delete($cart_table_name, array('user_id' => $user_id));
-        $wpdb->print_error();
 
-        exit;
     }
 
 
