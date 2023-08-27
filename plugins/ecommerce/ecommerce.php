@@ -397,6 +397,8 @@ class Ecommerce
             );
         }
 
+        exit;
+
         // Clear the cart
         $cart_table_name = $wpdb->prefix . 'cart';
         $wpdb->delete($cart_table_name, array('user_id' => $user_id));
