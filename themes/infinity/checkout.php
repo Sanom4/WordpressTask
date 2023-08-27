@@ -16,20 +16,20 @@ get_header();
         </div>
         <div class="col-md-8">
             <h2 class="mb-4">Checkout</h2>
-            <form action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post">
-                <input type="hidden" name="action" value="process_checkout">
-                <?php if (!is_user_logged_in()) { ?>
-                    <!-- User Action Selection -->
-                    <div class="mb-3">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="userAction" id="registerRadio" value="register" checked>
-                            <label class="form-check-label" for="registerRadio">Register</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="userAction" id="loginRadio" value="login">
-                            <label class="form-check-label" for="loginRadio">Login</label>
-                        </div>
+            <?php if (!is_user_logged_in()) { ?>
+                <!-- User Action Selection -->
+                <div class="mb-3">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="userAction" id="registerRadio" value="register" checked>
+                        <label class="form-check-label" for="registerRadio">Register</label>
                     </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="userAction" id="loginRadio" value="login">
+                        <label class="form-check-label" for="loginRadio">Login</label>
+                    </div>
+                </div>
+                <form action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post">
+                    <input type="hidden" name="action" value="register">
                     <div class="registrationSection mb-3">
                         <h3 class="mb-3">Registration</h3>
                         <div class="mb-3">
@@ -44,8 +44,11 @@ get_header();
                             <label for="email" class="form-label">Email</label>
                             <input type="text" class="form-control" id="email" name="email">
                         </div>
+                        <button type="submit" class="btn btn-primary OrderButton">Register</button>
                     </div>
-
+                </form>
+                <form action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post">
+                    <input type="hidden" name="action" value="login">
                     <div class="loginSection mb-3" style="display:none;">
                         <h3 class="mb-3">Login</h3>
                         <div class="mb-3">
@@ -57,9 +60,13 @@ get_header();
                             <input type="password" class="form-control" id="password" name="passwordLogin">
                         </div>
                     </div>
-                <?php } ?>
 
+                    <button type="submit" class="btn btn-primary OrderButton">Login</button>
+                </form>
+            <?php } ?>
 
+            <form action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post">
+                <input type="hidden" name="action" value="process_checkout">
                 <!-- Credit Card Information Inputs -->
                 <div class="mb-3">
                     <h3 class="mb-3">Credit Card Information</h3>
@@ -117,10 +124,21 @@ get_header();
 
                 <!-- Place Order Button -->
                 <div class="OrderPlaceholder">
-                    <button type="submit" class="btn btn-primary OrderButton">Place Order</button>
+                    <?php if (!is_user_logged_in()) { ?>
+                        <button type="submit" class="btn btn-primary OrderButton" id="showModalBtn">Place Order</button>
+                    <?php } else { ?>
+                        <button type="submit" class="btn btn-primary OrderButton">Place Order</button>
+                    <?php } ?>
                 </div>
             </form>
         </div>
+    </div>
+</div>
+
+<div id="alertModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <p>This is an alert message!</p>
     </div>
 </div>
 
@@ -136,6 +154,15 @@ get_header();
                 $('.registrationSection').hide();
                 $('.loginSection').show();
             }
+        });
+
+        $('#showModalBtn').on('click', function(event) {
+            event.preventDefault();
+            $('#alertModal').show();
+        });
+
+        $('.close-btn').on('click', function() {
+            $('#alertModal').hide();
         });
     });
 </script>

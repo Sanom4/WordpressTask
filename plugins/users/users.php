@@ -9,6 +9,14 @@ Author: Alexander Gonzalez
 class UserRL
 {
 
+    public function __construct()
+    {
+
+        //Actions
+        add_action('admin_post_nopriv_login', array($this, 'Login'));
+        add_action('admin_post_nopriv_register', array($this, 'Registration'));
+    }
+
     // WordPress Standard Registration
     function Registration()
     {

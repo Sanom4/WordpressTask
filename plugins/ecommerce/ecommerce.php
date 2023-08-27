@@ -328,25 +328,12 @@ class Ecommerce
     public function process_checkout()
     {
         global $wpdb;
-        if (class_exists('UserRL')) {
-            $UserRL = new UserRL();
-        }
+
 
         $cardName = sanitize_text_field($_POST['cardName']);
         $cardNumber = sanitize_text_field($_POST['cardNumber']);
         $cardExpiry = sanitize_text_field($_POST['cardExpiry']);
         $cardCVV = sanitize_text_field($_POST['cardCVV']);
-
-        if (!is_user_logged_in()) {
-            $userAction = sanitize_text_field($_POST['userAction']);
-
-            if ($userAction == 'register') {
-                $UserRL->Registration();
-            } elseif ($userAction == 'login') {
-                $UserRL->Login();
-            }
-        }
-
         $user_id = get_current_user_id();
         $customer = wp_get_current_user();
 
@@ -396,8 +383,6 @@ class Ecommerce
                 )
             );
         }
-
-        exit;
 
         // Clear the cart
         $cart_table_name = $wpdb->prefix . 'cart';
