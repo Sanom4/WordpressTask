@@ -19,7 +19,7 @@ get_header();
             <?php if (!is_user_logged_in()) { ?>
                 <!-- User Action Selection -->
                 <div class="mb-3">
-                    <div class="form-check form-check-inline">
+                    <div class="form-check form-check-inline" id="Auth">
                         <input class="form-check-input" type="radio" name="userAction" id="registerRadio" value="register" checked>
                         <label class="form-check-label" for="registerRadio">Register</label>
                     </div>
@@ -59,9 +59,8 @@ get_header();
                             <label for="password" class="form-label">Password</label>
                             <input type="password" class="form-control" id="password" name="passwordLogin">
                         </div>
+                        <button type="submit" class="btn btn-primary OrderButton">Login</button>
                     </div>
-
-                    <button type="submit" class="btn btn-primary OrderButton">Login</button>
                 </form>
             <?php } ?>
 
@@ -135,10 +134,28 @@ get_header();
     </div>
 </div>
 
-<div id="alertModal" class="modal">
-    <div class="modal-content">
-        <span class="close-btn">&times;</span>
-        <p>This is an alert message!</p>
+<!-- The Modal -->
+<div class="modal" id="alertModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Modal Heading</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                Modal body..
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
     </div>
 </div>
 
@@ -158,11 +175,13 @@ get_header();
 
         $('#showModalBtn').on('click', function(event) {
             event.preventDefault();
-            $('#alertModal').show();
+            $('#alertModal').modal('show');
         });
 
-        $('.close-btn').on('click', function() {
-            $('#alertModal').hide();
+        $('#alertModal').on('hidden.bs.modal', function() {
+            $('html, body').animate({
+                scrollTop: $("#Auth").offset().top
+            }, 500); // 500 is the duration of the animation in milliseconds
         });
     });
 </script>
