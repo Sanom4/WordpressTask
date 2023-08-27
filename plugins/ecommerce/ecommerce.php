@@ -364,8 +364,7 @@ class Ecommerce
         echo '<br>';
         print_r($cart_items);
 
-        exit;
-
+    
         $total_amount = array_reduce($cart_items, function ($sum, $item) {
             return $sum + $item['price'] * $item['quantity'];
         }, 0);
@@ -390,6 +389,9 @@ class Ecommerce
             )
         );
 
+        $wpdb->print_error();
+
+
         $order_id = $wpdb->insert_id;
         $order_items_table_name = $wpdb->prefix . 'order_items';
 
@@ -410,6 +412,8 @@ class Ecommerce
         // Clear the cart
         $cart_table_name = $wpdb->prefix . 'cart';
         $wpdb->delete($cart_table_name, array('user_id' => $user_id));
+
+        exit;
     }
 
 
@@ -440,7 +444,6 @@ class Ecommerce
         $this->process_checkout();
 
         wp_redirect(home_url('/orders')); // Redirect to the orders page
-        exit;
     }
 
 
