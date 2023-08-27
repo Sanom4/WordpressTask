@@ -88,7 +88,6 @@ class Ecommerce
         item_id INT NOT NULL AUTO_INCREMENT,
         order_id INT NOT NULL,
         product_id INT NOT NULL,
-        product_name VARCHAR(255),
         quantity INT,
         price DECIMAL(10, 2),
         subtotal DECIMAL(10, 2),
@@ -389,9 +388,6 @@ class Ecommerce
             )
         );
 
-        $wpdb->print_error();
-
-
         $order_id = $wpdb->insert_id;
         $order_items_table_name = $wpdb->prefix . 'order_items';
 
@@ -401,7 +397,6 @@ class Ecommerce
                 array(
                     'order_id' => $order_id,
                     'product_id' => $item['product_id'],
-                    'product_name' => $item['product_name'],
                     'quantity' => $item['quantity'],
                     'price' => $item['price'],
                     'subtotal' => $item['price'] * $item['quantity']
@@ -412,6 +407,7 @@ class Ecommerce
         // Clear the cart
         $cart_table_name = $wpdb->prefix . 'cart';
         $wpdb->delete($cart_table_name, array('user_id' => $user_id));
+        $wpdb->print_error();
 
         exit;
     }
