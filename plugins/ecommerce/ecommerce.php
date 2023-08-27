@@ -351,10 +351,20 @@ class Ecommerce
         $user_id = get_current_user_id();
         $customer = wp_get_current_user();
 
+        
+
         $cart_items = $this->get_cart_items_checkout($user_id);
         if (!$cart_items) {
             return; // No items in cart
         }
+
+        print_r($user_id);
+        echo '<br>';
+        print_r($customer);
+        echo '<br>';
+        print_r($cart_items);
+
+        exit;
 
         $total_amount = array_reduce($cart_items, function ($sum, $item) {
             return $sum + $item['price'] * $item['quantity'];
