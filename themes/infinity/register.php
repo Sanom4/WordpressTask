@@ -36,6 +36,12 @@ get_header();
                 </div>
             </div>
 
+
+            <!-- Place Order Button -->
+            <div class="OrderPlaceholder">
+                <button type="submit" class="btn btn-primary OrderButton">Register</button>
+            </div>
+
         </div>
     </div>
 </div>
